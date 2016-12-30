@@ -1,10 +1,12 @@
-package ${packageName};
+package ${packagePath};
 
 import java.util.List;
 import org.crazycake.jdbcTemplateTool.JdbcTemplateTool;
+import org.crazycake.jdbcTemplateTool.model.SqlParamsPairs;
 import org.springframework.beans.factory.annotation.Autowired;
+import ${utilPackagePath};
 /**
-*  Created by ${author}
+*  Created by ${author} on ${date}
 *  Version 1.0
 */
 
@@ -15,7 +17,7 @@ public class BaseDao<T> {
 
     /** 保存实体*/
 	public void save(T po) throws Exception{
-		return jdbcTemplateTool.save(po);
+		jdbcTemplateTool.save(po);
 	}
 
     /** 删除实体 */
@@ -34,23 +36,23 @@ public class BaseDao<T> {
 	}
 
     /** 根据主键查询实体 */
-	public T get(Class clazz, Object id) throws Exception{
-    	jdbcTemplateTool.get(clazz, id);
+	public T get(Class<T> clazz, Object id) throws Exception{
+    	return jdbcTemplateTool.get(clazz, id);
 	}
 
 
 	/** 查询满足条件的数目 */
 	public int getCount(T po) throws Exception {
         SqlParamsPairs pairs = ModelSqlExtUtil.getSelectFromObject(po);
-		String sql = countSql = "select count(*) from ( "+pairs.getSql()+" ) as tmp_tab ";
-		return jdbcTemplateTool.count(sql, pairs.getParams());
+		String countSql = "select count(*) from ( "+pairs.getSql()+" ) as tmp_tab ";
+		return jdbcTemplateTool.count(countSql, pairs.getParams());
 	}
 
     /** 查询满足条件的实体列表 */
-	public List<T> getPage(T po, int offSet, int pageSize) throws Exception {
+	public List getPage(T po, int offSet, int pageSize) throws Exception {
         SqlParamsPairs pairs = ModelSqlExtUtil.getSelectFromObject(po);
-        String sql = countSql = pairs.getSql()+" limit "+offSet+", "+pageSize;
-		return list(sql, pairs.getParams(), po.getClass());
+        String countSql = pairs.getSql()+" limit "+offSet+", "+pageSize;
+		return (List<T>)jdbcTemplateTool.list(countSql, pairs.getParams(), po.getClass());
     }
 
     /**
@@ -60,7 +62,7 @@ public class BaseDao<T> {
      * @param clazz		目标对象
      * @return <T> List<T>
      */
-      public <T> List<T> list(String sql,Object[] params,Class<T> clazz) throws Exception{
+      public List<T> list(String sql,Object[] params,Class<T> clazz) throws Exception{
 		  return jdbcTemplateTool.list(sql, params, clazz);
       }
 }

@@ -3,11 +3,13 @@ package com.marker.biz.service;
 import com.alibaba.fastjson.JSONObject;
 import com.marker.biz.common.Conguration;
 import com.marker.biz.domain.Attr;
+import com.marker.biz.utils.DateUtil;
 import com.marker.biz.utils.TemplateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +42,7 @@ public class GenerateEntityService {
             System.out.println(name);
 
             root.put("className", name);
+            root.put("date", DateUtil.getDate1());
             root.put("attrs", entry.getValue());
             root.put("author", Conguration.author);
             logger.info(JSONObject.toJSONString(entry.getValue()));

@@ -4,7 +4,7 @@ import ${importPackage};
 import java.util.List;
 
 /**
-*  Created by ${author}
+*  Created by ${author} on ${date}
 *  Version 1.0
 */
 
@@ -24,7 +24,6 @@ public interface ${entityName}Service {
 
 	/** 删除实体 */
 	public void del${entityName}(${entityName} entity);
-
 
 	<#if attrs?? && (attrs?size > 0) >
     /** 根据主键删除实体 */

@@ -1,7 +1,7 @@
-package com.marker.biz.utils;
+package ${packageName};
 /**  
- * @author chenwei  
- * @date 创建时间：2016年11月10日 下午6:21:18 
+ *
+ * Created by ${author} on ${date}.
  * @version 1.0  
  */
 
@@ -14,9 +14,10 @@ public final class CamelNameUtil {
 
 		String underscoreName = camelName.replaceAll(regex, replacement);
 		//output: Pur_Order_Id_ 接下来把最后一个_去掉，然后全部改小写
-		
-		underscoreName = underscoreName.toLowerCase().substring(0, underscoreName.length()-1);
-		
+		underscoreName = underscoreName.toLowerCase();
+		if(underscoreName.endsWith("_")){
+			underscoreName = underscoreName.substring(0, underscoreName.length()-1);
+		}
 		return underscoreName;
 	}
 	

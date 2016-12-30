@@ -135,4 +135,33 @@ public class Table2EntityService {
             return  null;
         }
     }
+
+
+    public synchronized Map<String, List<Attr>> confirmPrimaryKey(Map<String, List<Attr>> cMap, Map<String, List<Attr>> pMap){
+        logger.info("confirmPrimaryKey|确定实体中的主键，并且在Attr中设定是否为主键");
+        if(cMap == null || pMap == null || cMap.size() != pMap.size()){
+            logger.info("confirmPrimaryKey|输入不合法");
+            return null;
+        }
+
+        for(Map.Entry<String, List<Attr>> entry:cMap.entrySet()){
+            String key = entry.getKey();
+            List<Attr> clist = entry.getValue();
+            List<Attr> plist = pMap.get(key);
+            if(plist != null && plist.size()>0){
+                for(Attr attr:plist){
+                    for(Attr at:clist){
+                        if(attr != null && attr.getField()!= null && at.getField() != null){
+                            if(attr.getField().equals(at.getField())){
+                                at.setPrimary(true);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return cMap;
+    }
+
 }

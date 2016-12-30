@@ -105,6 +105,9 @@ public static <T> SqlParamsPairs getSelectFromObject(T po) throws Exception {
         return sqlAndParams;
 
         }*/
+        if(whereSql == null || whereSql.length()==0){
+            whereSql.append(" 1=1 ");
+        }
         selectSql.append(whereSql);
         sqlAndParams = new SqlParamsPairs(selectSql.toString(), params.toArray());
         logger.debug(sqlAndParams.toString());

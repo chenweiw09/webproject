@@ -2,11 +2,8 @@ package com.marker.biz.test;
 
 import com.marker.biz.common.Conguration;
 import com.marker.biz.domain.Attr;
-import com.marker.biz.util.TemplateUtil;
-import freemarker.template.TemplateException;
+import com.marker.biz.utils.TemplateUtil;
 
-import java.io.IOException;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,12 +21,14 @@ public class TestMain {
         list.add(new Attr("hobby", "String"));
 
         Map<String,Object> root = new HashMap<String, Object>();
-        root.put("packageName", "com.my.learn.freemarker");
+        root.put("packageName", Conguration.packagePath);
         root.put("className", "User");
         root.put("attrs", list);
-        root.put("author", "adams");
+        root.put("author", Conguration.author);
 
         String tempName = "bean.ftl";
         TemplateUtil.filePrint(root, Conguration.tempFilePath, tempName, Conguration.outDomainPath, "User.java");
+
+
     }
 }

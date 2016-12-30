@@ -1,7 +1,9 @@
 package com.marker.biz.test;
 
 import com.marker.biz.domain.Column;
-import com.marker.biz.service.GenarateBizService;
+import com.marker.biz.service.GenerateBizService;
+import com.marker.biz.service.GenerateDaoService;
+import com.marker.biz.service.GenerateEntityService;
 import com.marker.biz.service.Table2EntityService;
 import com.marker.biz.utils.JDBCUtil;
 import org.junit.Test;
@@ -26,14 +28,18 @@ public class TestJdbcUtil {
         Table2EntityService service = new Table2EntityService();
 
         Map map = service.getTablePrimaryKey(jdbcUrl, username, password);
-
+ /*
         GenarateBizService bizService = new GenarateBizService();
         bizService.generateBizInterfaceImpl(map);
 
-        /*Map map = service.getTable2Entity(jdbcUrl, username, password);
+        Map map = service.getTable2Entity(jdbcUrl, username, password);
 
         GenerateEntityService entityService = new GenerateEntityService();
         entityService.generateEntity(map);*/
+        GenerateDaoService daoService = new GenerateDaoService();
+        daoService.generateBaseDao();
+        daoService.generateDao(map);
+
         System.out.println("gag");
 
     }

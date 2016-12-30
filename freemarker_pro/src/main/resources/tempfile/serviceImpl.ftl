@@ -1,7 +1,7 @@
 package ${packagePath};
 
 /**
-*  Created by ${author}
+*  Created by ${author} on ${date}
 *  Version 1.0
 */
 
@@ -19,7 +19,7 @@ import ${servicePackage};
 import ${daoPackage};
 
 
-@Service
+@Service("${entityName?uncap_first}Service")
 public class ${entityName}ServiceImpl implements ${entityName}Service{
 	private static final Logger logger = LoggerFactory.getLogger(${entityName}ServiceImpl.class);
 
@@ -60,7 +60,7 @@ public class ${entityName}ServiceImpl implements ${entityName}Service{
 
 	@Override
 	public void update${entityName}(${entityName} entity){
-		logger.info("update${entityName}|更新实体|param:entity="+JSONObject.toJSONStrin(entity));
+		logger.info("update${entityName}|更新实体|param:entity="+JSONObject.toJSONString(entity));
 		if(entity == null){
 			logger.info("update${entityName}|param is empty|return 0");
 			return;
@@ -96,14 +96,14 @@ public class ${entityName}ServiceImpl implements ${entityName}Service{
 
 	@Override
 	public void del${entityName}(${entityName} entity){
-		logger.info("del${entityName}|删除实体|param:entity="+JSONObject.toJSONStrin(entity));
+		logger.info("del${entityName}|删除实体|param:entity="+JSONObject.toJSONString(entity));
 		if(entity == null){
 			logger.info("del${entityName}|param is empty");
 			return;
 		}
 
 		try{
-			${entityName?uncap_first}Dao.del(entity);
+			${entityName?uncap_first}Dao.delete(entity);
 			logger.info("del${entityName}|删除实体|return:");
 		}catch(Exception e){
 			logger.error("del${entityName}|删除实体异常|exception:"+e);
@@ -135,8 +135,8 @@ public class ${entityName}ServiceImpl implements ${entityName}Service{
 			return null;
 		}*/
 		try{
-			${entityName} entity = ${entityName?uncap_first}Dao.getBy<#list attrs as a>${a.field?cap_first}</#list>(<#list attrs as a>${a.field}<#if a_has_next>, </#if></#list>);
-			logger.info("get${entityName}By<#list attrs as a>${a.field?cap_first}</#list>|return:"+JSONObject.toJSONStrin(entity));
+			${entityName} entity = ${entityName?uncap_first}Dao.get${entityName}By<#list attrs as a>${a.field?cap_first}</#list>(<#list attrs as a>${a.field}<#if a_has_next>, </#if></#list>);
+			logger.info("get${entityName}By<#list attrs as a>${a.field?cap_first}</#list>|return:"+JSONObject.toJSONString(entity));
 			return entity;
 		}catch(Exception e){
 			logger.error("get${entityName}By<#list attrs as a>${a.field?cap_first}</#list>|根据主键查询实体异常|exception:"+e);

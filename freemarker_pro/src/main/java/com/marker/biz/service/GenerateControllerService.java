@@ -10,50 +10,34 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * Created by chenwei23 on 2016/12/20.
+ * Created by chenwei23 on 2016/12/22.
  */
-public class GenerateDaoService {
+public class GenerateControllerService {
     private static final Logger logger = LoggerFactory.getLogger(GenerateDaoService.class);
-
     /**
-     * 生成baseDao文件
+     * 生成controller类
      */
-    public void generateBaseDao(){
-        // 判断
-        TemplateUtil.deleteFile(new File(Conguration.outDaoPath));
 
-        Map<String,Object> root = new HashMap<String, Object>();
-        root.put("packagePath", Conguration.packagePath+".dao");
-        root.put("author", Conguration.author);
-        root.put("date", DateUtil.getDate1());
-        root.put("utilPackagePath", Conguration.packagePath+".utils.ModelSqlExtUtil");
-
-        TemplateUtil.filePrint(root, Conguration.tempFilePath, "baseDao.ftl", Conguration.outDaoPath, "BaseDao.java");
-    }
-
-    /**
-     * 生成dao文件
-     * @param map
-     */
-    public void generateDao(Map<String, List<Attr>> map) {
-        logger.info("generateDao|param:attrMap=", JSONObject.toJSONString(map));
+    public void generateController(Map<String, List<Attr>> map) {
+        logger.info("generateController|param:attrMap=", JSONObject.toJSONString(map));
         if (map == null) {
-            logger.info("generateDao|param empty error");
+            logger.info("generateController|param empty error");
             return;
         }
 
         // 判断
-        //TemplateUtil.deleteFile(new File(Conguration.outDaoPath));
+        TemplateUtil.deleteFile(new File(Conguration.outConTrollerPath));
 
         Map<String, Object> root;
         for (Map.Entry<String, List<Attr>> entry : map.entrySet()) {
             root = new HashMap<String, Object>();
-            root.put("packagePath", Conguration.packagePath + ".dao");
+            root.put("packagePath", Conguration.packagePath + ".controller");
             root.put("author", Conguration.author);
             root.put("date", DateUtil.getDate1());
             String className = entry.getKey();
@@ -64,11 +48,11 @@ public class GenerateDaoService {
             root.put("entityName", name);
             root.put("attrs", entry.getValue());
             root.put("domainPackage", Conguration.packagePath + ".domain." + name);
-            root.put("tableName", CamelNameUtil.camel2underscore(className));
-
+            root.put("servicePackage", Conguration.packagePath + ".service."+name+"Service");
+            root.put("commonPackage", Conguration.packagePath+".common.*");
             logger.info(JSONObject.toJSONString(entry.getValue()));
 
-            TemplateUtil.filePrint(root, Conguration.tempFilePath, "dao.ftl", Conguration.outDaoPath, name + "Dao.java");
+            TemplateUtil.filePrint(root, Conguration.tempFilePath, "controller.ftl", Conguration.outConTrollerPath, name + "Controller.java");
         }
     }
 }

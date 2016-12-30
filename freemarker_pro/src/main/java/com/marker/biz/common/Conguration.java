@@ -8,8 +8,10 @@ public class Conguration {
     public static String tempFilePath = "/tempfile/";
     //工程包的名称
     public static String packagePath = "com.my.freemarker.biz";
+    //工程名称
+    public static String projectName = "project/";
     //工程文件目录
-    public static String outFilePath = "project/"+packagePath.replace(".","/")+"/";
+    public static String outFilePath = projectName+packagePath.replace(".","/")+"/";
     //jsp文件目录
     public static String outJspPath = outFilePath+"jsp";
     //domain文件目录
@@ -25,9 +27,16 @@ public class Conguration {
     //util文件目录
     public static String outUtilPath = outFilePath+"utils";
 
+    //util文件目录
+    public static String outCommonPath = outFilePath+"common";
+
     public static String outFileName = "test.html";
 
     public static String author = "chenwei";
+
+    //配置文件目录
+    public static String outResourcePath = projectName+"resources/";
+
 
 
 }
