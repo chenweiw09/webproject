@@ -17,7 +17,6 @@ public abstract class AspectProxy implements Proxy {
         Class<?> cls = proxyChain.getTargetClass();
         Method method = proxyChain.getTargetMethod();
         Object[] params = proxyChain.getMethodParams();
-
         begin();
         try {
             if(intercept(cls, method, params)){

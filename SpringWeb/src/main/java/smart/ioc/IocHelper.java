@@ -20,28 +20,28 @@ public class IocHelper {
         Map<Class<?>, Object> beanMap = BeanHelper.getBeanMap();
         try {
             for(Map.Entry<Class<?>, Object> entry : beanMap.entrySet()){
-                // »ñÈ¡ Bean ÀàÓë Bean ÊµÀý
+                // ï¿½ï¿½È¡ Bean ï¿½ï¿½ï¿½ï¿½ Bean Êµï¿½ï¿½
                 Class<?> beanClass = entry.getKey();
                 Object beanInstance = entry.getValue();
 
-                // »ñÈ¡ Bean ÀàÖÐËùÓÐµÄ×Ö¶Î£¨²»°üÀ¨¸¸ÀàÖÐµÄ·½·¨£©
+                // ï¿½ï¿½È¡ Bean ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½Ö¶Î£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÐµÄ·ï¿½ï¿½ï¿½ï¿½ï¿½
                 Field[] fields = beanInstance.getClass().getDeclaredFields();
                 if(ArrayUtils.isNotEmpty(fields)){
                     for(Field beanField:fields){
                         if(beanField.isAnnotationPresent(Inject.class)){
-                            // »ñÈ¡ Bean ×Ö¶Î¶ÔÓ¦µÄ½Ó¿Ú
+                            // ï¿½ï¿½È¡ Bean ï¿½Ö¶Î¶ï¿½Ó¦ï¿½Ä½Ó¿ï¿½
                             Class<?> interfaceClass = beanField.getType();
-                            // »ñÈ¡ Bean ×Ö¶Î¶ÔÓ¦µÄÊµÏÖÀà
+                            // ï¿½ï¿½È¡ Bean ï¿½Ö¶Î¶ï¿½Ó¦ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½
                             Class<?> implementClass = findImplementClass(interfaceClass);
                             if(implementClass != null){
-                                // ´Ó Bean Map ÖÐ»ñÈ¡¸ÃÊµÏÖÀà¶ÔÓ¦µÄÊµÏÖÀàÊµÀý
+                                // ï¿½ï¿½ Bean Map ï¿½Ð»ï¿½È¡ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½
                                 Object implementInstance = beanMap.get(implementClass);
-                                // ÉèÖÃ¸Ã Bean ×Ö¶ÎµÄÖµ
+                                // ï¿½ï¿½ï¿½Ã¸ï¿½ Bean ï¿½Ö¶Îµï¿½Öµ
                                 if(implementInstance != null){
                                     beanField.setAccessible(true);
                                     beanField.set(beanInstance,implementInstance);
                                 }else {
-                                    throw new InitializationException("ÒÀÀµ×¢ÈëÊ§°Ü£¡ÀàÃû£º" + beanClass.getSimpleName() + "£¬×Ö¶ÎÃû£º" + interfaceClass.getSimpleName());
+                                    throw new InitializationException("ï¿½ï¿½ï¿½ï¿½×¢ï¿½ï¿½Ê§ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" + beanClass.getSimpleName() + "ï¿½ï¿½ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½ï¿½" + interfaceClass.getSimpleName());
                                 }
                             }
                         }
@@ -49,14 +49,14 @@ public class IocHelper {
                 }
             }
         } catch (IllegalAccessException e) {
-            throw new InitializationException("³õÊ¼»¯ IocHelper ³ö´í£¡", e);
+            throw new InitializationException("ï¿½ï¿½Ê¼ï¿½ï¿½ IocHelper ï¿½ï¿½ï¿½ï¿½", e);
         }
     }
 
     public static Class<?> findImplementClass(Class<?> interfaceClass){
         Class<?> implementClass = interfaceClass;
 
-        //Èç¹û½Ó¿ÚÉÏ±íÃ÷ÁËImpl×¢½â£¬¾ÍÖ±½ÓÈ¡´ËÀà
+        //ï¿½ï¿½ï¿½ï¿½Ó¿ï¿½ï¿½Ï±ï¿½ï¿½ï¿½ï¿½ï¿½Impl×¢ï¿½â£¬ï¿½ï¿½Ö±ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
         if(interfaceClass.isAnnotationPresent(Impl.class)){
             implementClass = interfaceClass.getAnnotation(Impl.class).vaule();
         }else{

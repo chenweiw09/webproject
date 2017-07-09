@@ -10,7 +10,7 @@ import java.util.Properties;
 
 /**
  * Created by Cruise on 2017/7/2.
- * ¸ù¾ÝÌõ¼þ»ñÈ¡Ïà¹ØÀà
+ * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½
  */
 public class ClassHelper {
     private static Properties props;
@@ -27,14 +27,14 @@ public class ClassHelper {
     }
 
     /**
-     * »ñÈ¡»ù´¡°üÃûÖÐÖ¸¶¨¸¸Àà»ò½Ó¿ÚµÄÏà¹ØÀà
+     * ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¿Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      */
     public static List<Class<?>> getClassListBySuper(Class<?> superClass){
         return classScanner.getClassListByPackageName(basePackage, superClass);
     }
 
     /**
-     * »ñÈ¡»ù´¡°üÃûÖÐÖ¸¶¨×¢½âµÄÏà¹ØÀà
+     * ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      */
     public static List<Class<?>> getClassListByAnnotation(Class<? extends Annotation> annotationClass) {
         return classScanner.getAnnotationClassByPackageName(basePackage, annotationClass);

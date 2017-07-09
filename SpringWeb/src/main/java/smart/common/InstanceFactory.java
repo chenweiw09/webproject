@@ -15,7 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class InstanceFactory {
 
     /**
-     * ÓÃÓÚ»º´æ¶ÔÓ¦µÄÊµÀý
+     * ï¿½ï¿½ï¿½Ú»ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½Êµï¿½ï¿½
      */
     private static final Map<String, Object> cache = new ConcurrentHashMap<String, Object>();
 
@@ -25,7 +25,7 @@ public class InstanceFactory {
     private static final String CLASS_SCANNER = "smart.framework.custom.class_scanner";
 
     /**
-     * »ñÈ¡ ClassScanner
+     * ï¿½ï¿½È¡ ClassScanner
      */
     public static ClassScanner getClassScanner() {
         return getInstance(CLASS_SCANNER, DefaultClassScanner.class);
@@ -48,11 +48,11 @@ public class InstanceFactory {
             throw new RuntimeException(e);
         }
 
-        // Èô¸ÃÊµÀý²»Îª¿Õ£¬Ôò½«Æä·ÅÈë»º´æ
+        // ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½Îªï¿½Õ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë»ºï¿½ï¿½
         if (instance != null) {
             cache.put(cacheKey, instance);
         }
-        // ·µ»Ø¸ÃÊµÀý
+        // ï¿½ï¿½ï¿½Ø¸ï¿½Êµï¿½ï¿½
         return instance;
     }
 }

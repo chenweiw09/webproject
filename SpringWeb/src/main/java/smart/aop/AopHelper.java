@@ -1,12 +1,14 @@
 package smart.aop;
 
 import org.apache.commons.lang3.StringUtils;
-import smart.InstanceFactory;
 import smart.aop.annotation.Aspect;
 import smart.aop.annotation.AspectOrder;
 import smart.aop.proxy.Proxy;
+import smart.aop.proxy.ProxyManager;
+import smart.common.InstanceFactory;
 import smart.core.ClassHelper;
 import smart.core.ClassScanner;
+import smart.ioc.BeanHelper;
 import smart.util.ClassUtil;
 
 import java.lang.annotation.Annotation;
@@ -25,6 +27,15 @@ public class AopHelper {
 
             Map<Class<?>, List<Proxy>> targetMap = createTargetMap(proxyMap);
 
+            for (Map.Entry<Class<?>, List<Proxy>> targetEntry : targetMap.entrySet()) {
+                // 分别获取 map 中的 key 与 value
+                Class<?> targetClass = targetEntry.getKey();
+                List<Proxy> proxyList = targetEntry.getValue();
+                // 创建代理实例
+                Object proxyInstance = ProxyManager.createProxy(targetClass, proxyList);
+                // 用代理实例覆盖目标实例，并放入 Bean 容器中
+                BeanHelper.setBean(targetClass, proxyInstance);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -50,7 +61,7 @@ public class AopHelper {
     }
 
     private static void addAspectProxy(Map<Class<?>, List<Class<?>>> proxyMap) throws Exception{
-        //所有的切面都是继承自AspectProxy
+        //所有的切面都是继承自AspectProxy，找到所有的切面代理类
         List<Class<?>> aspectProxyClassList = ClassHelper.getClassListBySuper(AspectProxy.class);
 
         sortAspectProxyClassList(aspectProxyClassList);

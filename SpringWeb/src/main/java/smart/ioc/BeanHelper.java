@@ -18,7 +18,7 @@ public class BeanHelper {
         List<Class<?>> classList = ClassHelper.getClassList();
         try {
             for(Class<?> cls : classList){
-                // ´¦Àí´øÓÐ Bean/Service/Action/Aspect ×¢½âµÄÀà
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Bean/Service/Action/Aspect ×¢ï¿½ï¿½ï¿½ï¿½ï¿½
                 if(cls.isAnnotationPresent(Bean.class)){
     //                    || cls.isAnnotationPresent(Bean.class)
     //                    || cls.isAnnotationPresent(Bean.class)
@@ -29,7 +29,7 @@ public class BeanHelper {
                 }
             }
         } catch (Exception e) {
-            throw new InitializationException("³õÊ¼»¯ BeanHelper ³ö´í£¡", e);
+            throw new InitializationException("ï¿½ï¿½Ê¼ï¿½ï¿½ BeanHelper ï¿½ï¿½ï¿½ï¿½", e);
         }
     }
 
