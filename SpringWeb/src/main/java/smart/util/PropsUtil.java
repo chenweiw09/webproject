@@ -22,7 +22,7 @@ public final class PropsUtil {
             throw new IllegalArgumentException();
         }
         String suffix = ".properties";
-        if (path.lastIndexOf(suffix) != 1) {
+        if (path.lastIndexOf(suffix) == -1) {
             path += suffix;
         }
         try {

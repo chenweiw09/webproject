@@ -23,6 +23,7 @@ public class ClassHelper {
     private static final ClassScanner classScanner = InstanceFactory.getClassScanner();
 
     public static List<Class<?>> getClassList() {
+        System.out.println(basePackage+"---------------");
         return classScanner.getClassByPackageName(basePackage);
     }
 
